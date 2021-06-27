@@ -1,0 +1,25 @@
+#!/bin/bash
+tab=('')
+let "i=0"
+let "c=0"
+twc="`cat /etc/fstab | grep -v '^#' | grep 'ext'`"
+for p in $twc
+do
+	let "b=i%6"
+	if [ $b -eq 0 ]
+	then
+		t="`echo $p | cut -c 1-5`"
+		if [ $t = "UUID=" ] || [ $t = "LABEL" ]
+		then
+			z="`findfs $p`"
+			tab[$c]=$z
+			let "c+=1"
+		else
+		       	tab[$c]=$p
+			let "c+=1"
+		fi
+	fi
+	let "i+=1"
+done
+ListeFS="${tab[*]}"
+echo $ListeFS
