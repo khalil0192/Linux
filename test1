@@ -22,4 +22,19 @@ do
 	let "i+=1"
 done
 ListeFS="${tab[*]}"
-echo $ListeFS
+for element in $ListeFS
+do
+	if (mdadm --detail $element |grep "raid1" ) > /dev/null 2>&1
+	then
+		nbsm=$(mdadm --detail $element|grep "active"|awk '{print $NF}'|wc -l) 
+		if [ $nbsmi -gt 1 ]
+		then
+			ListeRaid1=${ListeRaid1}" $element "$(mdadm --detail $element|grep "active"|awk '{print $NF}'|tail -l)
+		else
+			echo -e "PROBLEME pour $element \nLe nombre \
+				de sous-miroirs est insuffisant." >> ${FicLog}
+			MesPB=$MesPB"\nSauvegarde de $element non realisee: \
+                probleme sur sa configuration."
+		fi
+	fi
+echo $ListeRaid1
