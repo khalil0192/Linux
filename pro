@@ -1,8 +1,8 @@
 #!/bin/bash
 ###Les variables 
 #les variables modifiables par l'administrateur 
-TAPE="/home/o3li/sauv"
-USERMAIL="root"
+TAPE="/home/thor/Desktop/BACHUP.dump"
+USERMAIL="khalil.belhaj.etu20@ensem.ac.ma"
 Rep_sauve="/sauvegardes"
 ##############
 #les variables du script 
@@ -29,7 +29,7 @@ cat /dev/null > ${FicLog}    ### probleme de permission
 #si le script est execute sue la ligne de commande
 #ce message n apparait pas lors d un exécution par contrab(ou tout 
 #ordonnanceur ou séquenceur )     
-if [ "`tty | cut -c 1-8`" = "/dev/pts" ]
+if [ "`tty | cut -c 1-8`" = "/dev/tty" ]
 then 
 	echo -e "\n Debut de la sauvegarde systéme par #dump du serveur $SERVER \
 	\n Merci de partienter, la procedure est longue.\
