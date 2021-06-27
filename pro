@@ -90,7 +90,7 @@ do
 	if (mdadm --detail $element |grep "raid1" ) > /dev/null 2>&1
 	then
 		nbsm=$(mdadm --detail $element|grep "active"|awk '{print $NF}'|wc -l) 
-		if [ $nbsmi -gt 1 ]
+		if [ $nbsm -gt 1 ]
 		then
 			ListeRaid1=${ListeRaid1}" $element "$(mdadm --detail $element|grep "active"|awk '{print $NF}'|tail -l)
 		else
@@ -175,6 +175,7 @@ done
 ListeLVM="${table[*]}"
 
 if [ -n "$ListeLVM"]
+then
 for liste in $ListeLVM
 do
 	lvcreate --size 500M -s -n lensnap $liste
