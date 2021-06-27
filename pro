@@ -83,6 +83,25 @@ do
 done
 ListeFS="${tab[*]}"
 
+###ListeLVM le supprime de ListeFS
+newLVM=("")
+newFS=("")
+let "q=0"
+let "p=0"
+for fs in $ListeFS
+do
+	if [ `echo $fs |cut -c 1-11` == "/dev/mapper" ]
+	then
+		newLVM[$q]=$fs
+		let "q+=1"
+	else
+		newFS[$p]=$fs
+		let "p+=1"
+	fi
+done
+ListeFS="${newFS[*]}"
+ListeLVM="${newLVM[*]}"
+
 #partie2
 #recup les raid1 dans ListRaid1  
 for element in $ListeFS
@@ -124,24 +143,6 @@ do
 done
 ListeFS="${tabt[*]}"
 
-###ListeLVM le supprime de ListeFS
-newLVM=("")
-newFS=("")
-let "q=0"
-let "p=0"
-for fs in $ListeFS
-do
-	if [ `echo $fs |cut -c 1-11` == "/dev/mapper" ]
-	then
-		newLVM[$q]=$fs
-		let "q+=1"
-	else
-		newFS[$p]=$fs
-		let "p+=1"
-	fi
-done
-ListeFS="${newFS[*]}"
-ListeLVM="${newLVM[*]}"
 
 #####PAHSE 3
 #PARTIE1
