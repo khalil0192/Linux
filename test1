@@ -37,4 +37,5 @@ do
                 probleme sur sa configuration."
 		fi
 	fi
+done
 echo $ListeRaid1
